@@ -3,35 +3,37 @@
 #include <sys/mman.h>
 #include <fcntl.h>
 #include <stdio.h>
- 
-//программа открывает объект - общую память
+
 int main () {
-    char memn[] = "shared-memory"; //  имя объекта
+    char memn[] = "shared-memory"; //shared memory name
     char *addr;
     int shm;
-    int mem_size = 100; //размер области
- 
-    //открыть объект
-    if ( (shm = shm_open(memn, O_RDWR, 0666)) == -1 ) {
+    int mem_size = 100;
+
+    if ((shm = shm_open(memn, O_RDWR, 0666)) == -1) {
         printf("Opening error\n");
         perror("shm_open");
         return 1;
-    } else {
+    }
+    else {
         printf("Object is open: name = %s, id = 0x%x\n", memn, shm);
     }
  
-    //получить доступ к памяти
     addr = mmap(0, mem_size, PROT_WRITE|PROT_READ, MAP_SHARED, shm, 0);
-    if (addr == (char*)-1 ) {
-      printf("Error getting pointer to shared memory\n");
-      return 1;
+    if (addr == (char*)-1)
+    {
+        printf("Error getting pointer to shared memory\n");
+        return 1;
     }
- 
-    //осуществить вывод содержимого разделяемой памяти
-    printf("Obtained from shared memory:\n      %s\n", addr);
- 
-    //закрыть открытый объект
+
+    //output
+    printf(addr);
+
+    //close object
     close(shm);
+ 
+ 
+    //delete shared-memory
     if (shm_unlink(memn) == -1) {
         perror("shm_unlink");
     }
