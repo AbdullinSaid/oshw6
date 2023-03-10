@@ -20,8 +20,7 @@ int main () {
     }
  
     addr = mmap(0, mem_size, PROT_WRITE|PROT_READ, MAP_SHARED, shm, 0);
-    if (addr == (char*)-1)
-    {
+    if (addr == (char*)-1) {
         printf("Error getting pointer to shared memory\n");
         return 1;
     }
