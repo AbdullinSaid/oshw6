@@ -14,8 +14,7 @@ int main () {
         printf("Opening error\n");
         perror("shm_open");
         return 1;
-    }
-    else {
+    } else {
         printf("Object is open: name = %s, id = 0x%x\n", memn, shm);
     }
  
