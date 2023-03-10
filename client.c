@@ -19,15 +19,13 @@ int main() {
     if ((shm = shm_open(memn, O_CREAT|O_RDWR, 0666)) == -1) {
         perror("shm_open");
         return 1;
-    }
-    else {
+    } else {
         printf("Object is open: name = %s, id = 0x%x\n", memn, shm);
     }
     if (ftruncate(shm, mem_size) == -1) {
         perror("ftruncate");
         return 1;
-    }
-    else {
+    } else {
         printf("Memory size set and = %d\n", mem_size);
     }
     char buf[BUF_SIZE];
